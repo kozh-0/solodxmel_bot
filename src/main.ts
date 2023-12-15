@@ -1,30 +1,25 @@
 import 'dotenv/config';
 import dedent from 'dedent';
-// import { Loader } from './loader';
-import { Telegraf } from 'telegraf';
+import { Markup, Telegraf } from 'telegraf';
 import { message } from 'telegraf/filters';
+import { LOG_USERS, aboutText } from './help';
 
-function LOG_USERS(msg, context?: 'START' | 'TEXT') {
-  console.log(dedent`========================================================================================
-  ${msg.from.first_name} ${msg.from.last_name} (@${msg.from.username}) - ${msg.text}
-  ${new Date(msg.date * 1000).toLocaleString('ru')} ${context}
-  `);
-}
+const bot = new Telegraf(process.env.TG_KEY, { handlerTimeout: 20000 });
 
-const TG_BOT = new Telegraf(process.env.TG_KEY, { handlerTimeout: 20000 });
+bot.command('help', (ctx) => ctx.replyWithPhoto({ source: 'darkLogo.jpg' }));
+bot.command('about', (ctx) => ctx.replyWithVideo({ source: 'solodxmel_about_video.mp4' }, { caption: aboutText }));
 
-TG_BOT.command('start', (ctx) => {
+bot.command('start', (ctx) => {
   LOG_USERS(ctx.message, 'START');
-  ctx.reply(dedent`Добро пожаловать. 
-  то-то то-то`);
+  ctx.reply('Добро пожаловать!', {
+    //@ts-ignore
+    reply_markup: Markup.keyboard(['О компании']),
+  });
 });
 
-TG_BOT.on(message('text'), async (ctx) => {
+bot.on(message('text'), async (ctx) => {
   const input = ctx.message.text.trim();
   if (!input) return;
-
-  //   const loader = new Loader(ctx);
-  //   loader.show();
   LOG_USERS(ctx.message, 'TEXT');
 
   try {
@@ -35,11 +30,10 @@ TG_BOT.on(message('text'), async (ctx) => {
   }
 });
 
-TG_BOT.catch((err, ctx) => {
+bot.catch((err, ctx) => {
   console.error(err);
-  ctx.reply('Ошибка тг! Попробуй еще раз...');
+  ctx.reply('Ошибка! Попробуй еще раз...');
 });
 
-TG_BOT.launch();
-
+bot.launch();
 console.log('Запустился');
