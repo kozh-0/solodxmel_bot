@@ -1,38 +1,40 @@
 import 'dotenv/config';
-import dedent from 'dedent';
-import { Markup, Telegraf } from 'telegraf';
+import { Telegraf } from 'telegraf';
+import { Markup } from 'telegraf';
 import { message } from 'telegraf/filters';
-import { LOG_USERS, aboutText } from './help';
+import { BTNS, LOG_USERS } from './help';
+import { msgHandler } from './msgHandler';
 
 const bot = new Telegraf(process.env.TG_KEY, { handlerTimeout: 20000 });
 
-bot.command('help', (ctx) => ctx.replyWithPhoto({ source: 'darkLogo.jpg' }));
-bot.command('about', (ctx) => ctx.replyWithVideo({ source: 'solodxmel_about_video.mp4' }, { caption: aboutText }));
-
-bot.command('start', (ctx) => {
+bot.start((ctx) => {
   LOG_USERS(ctx.message, 'START');
-  ctx.reply('Добро пожаловать!', {
-    //@ts-ignore
-    reply_markup: Markup.keyboard(['О компании']),
-  });
+  ctx.reply(
+    'Компания Солод Хмель это надёжный поставщик и производитель пивоваренной продукции, снеков и сопутствующих товаров с 2011 года.',
+    Markup.keyboard([
+      [BTNS.About, BTNS.Catalog, BTNS.BusinessHelp],
+      [BTNS.Logistics, BTNS.Application, BTNS.Feedback],
+    ]).resize()
+  );
+  // Это чтобы можно было внутри сообщения кнопки выводить
+  // ctx.reply('message, {reply_markup: { inline_keyboard: [[{ text: 'О компании', callback_data: 'AHAHHAh' }]] }}')
 });
 
 bot.on(message('text'), async (ctx) => {
   const input = ctx.message.text.trim();
   if (!input) return;
   LOG_USERS(ctx.message, 'TEXT');
-
-  try {
-    ctx.reply(dedent`Привет, функционал пока в разработке...`);
-  } catch (err) {
-    console.error('TRY_CATCH AREA===========================================', err);
-    ctx.reply(`Что-то пошло cооовсем не так...`);
-  }
+  msgHandler(input, ctx);
 });
+
+bot.on('voice', (ctx) => ctx.reply('Какой чудный у вас голос 😉'));
+bot.on('sticker', (ctx) => ctx.reply('Классный стикер 🙃'));
+bot.on('photo', (ctx) => ctx.reply('👍'));
+bot.help((ctx) => ctx.replyWithPhoto({ source: 'darkLogo.jpg' }));
 
 bot.catch((err, ctx) => {
   console.error(err);
-  ctx.reply('Ошибка! Попробуй еще раз...');
+  ctx.reply('Упс... Что-то пошло не так. Попробуйте снова.');
 });
 
 bot.launch();
