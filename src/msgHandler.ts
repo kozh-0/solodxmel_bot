@@ -1,9 +1,9 @@
-import { Context, NarrowedContext } from 'telegraf';
+import { Context, NarrowedContext, Markup } from 'telegraf';
 import { Update } from 'telegraf/types';
 import { BTNS, LOG_USERS, aboutText, applicationText } from './help';
-// import { sendEmail } from './mail';
+import dedent from 'dedent';
 
-export function msgHandler(
+export async function msgHandler(
   input: (typeof BTNS)[keyof typeof BTNS] | string,
   ctx: NarrowedContext<Context<Update>, Update.MessageUpdate>
 ) {
@@ -23,24 +23,28 @@ export function msgHandler(
       ctx.reply('Тут будет что-то про логистику...');
       break;
     case BTNS.Application:
-      // sendEmail();
+      // @ts-ignore
+      // ctx.scene.enter('wizardScene');
+
       ctx.reply(applicationText, {
         reply_markup: {
           inline_keyboard: [
             [
-              { text: 'Отмена', callback_data: 'CANCEL' },
-              { text: 'Отправить', callback_data: 'SEND' },
+              Markup.button.callback('Отмена', 'cancel'),
+              { text: 'Сформировать письмо', web_app: { url: 'https://www.google.ru/' } },
+              Markup.button.callback('ЭКШН', 'send email'),
+              // { text: 'Отмена', callback_data: 'CANCEL' },
+              // { text: 'Отправить', web_app: { url: 'http://localhost:4200/reports' } },
             ],
           ],
         },
       });
-      // Markup.inlineKeyboard([
-      //   Markup.button.callback('Отмена', 'cancel'),
-      //   Markup.button.callback('Сформировать письмо', 'sendEmail'),
-      // ])
       break;
     case BTNS.Feedback:
-      ctx.reply('Тут будет обратная связь...');
+      ctx.reply(dedent`
+      Руководитель +7-(937)-363-33-36 Дмитрий 
+      Отдел продаж +7-(987)-251-36-21 Артур
+      E-mail Ufa.pivo@gmail.com`);
       break;
 
     default:
