@@ -1,6 +1,6 @@
 import { Context, NarrowedContext, Markup } from 'telegraf';
 import { Update } from 'telegraf/types';
-import { BTNS, LOG_USERS, aboutText, applicationText, businessHelp } from './help';
+import { BTNS, LOG_USERS, aboutText, applicationText, businessHelp, logisticsText } from './help';
 import dedent from 'dedent';
 
 export async function msgHandler(
@@ -21,28 +21,23 @@ export async function msgHandler(
       ctx.reply(businessHelp);
       break;
     case BTNS.Logistics:
-      ctx.reply('Тут будет что-то про логистику...');
+      ctx.reply(logisticsText);
       break;
     case BTNS.Application:
-      // @ts-ignore
-      // ctx.scene.enter('wizardScene');
-
       ctx.reply(applicationText, {
         reply_markup: {
           inline_keyboard: [
             [
               Markup.button.callback('Отмена', 'cancel'),
               { text: 'Сформировать письмо', web_app: { url: 'https://kozh-0.github.io/solodxmel_bot_front/' } },
-              // Markup.button.callback('ЭКШН', 'send email'),
-              // { text: 'Отмена', callback_data: 'CANCEL' },
-              // { text: 'Отправить', web_app: { url: 'http://localhost:4200/reports' } },
             ],
           ],
         },
       });
       break;
     case BTNS.Feedback:
-      ctx.replyWithPhoto(
+      await ctx.sendChatAction('upload_photo');
+      await ctx.replyWithPhoto(
         { source: 'src/public/feedback.png' },
         {
           caption: dedent`

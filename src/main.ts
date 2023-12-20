@@ -7,9 +7,6 @@ import { msgHandler } from './msgHandler';
 
 const bot = new Telegraf(process.env.TG_KEY, { handlerTimeout: 20000 });
 
-// bot.use(session());
-// bot.use(stage.middleware());
-
 bot.start((ctx) => {
   ctx.replyWithPhoto(
     { source: 'src/public/darkLogoSmall.jpg' },
@@ -27,9 +24,6 @@ bot.start((ctx) => {
 });
 
 bot.action('cancel', (ctx) => ctx.editMessageText('Может в следующий раз...'));
-bot.action('send email', (ctx) => {
-  ctx.reply('Тут будет всплывающий веб с формой');
-});
 
 bot.on(message('text'), async (ctx) => {
   const input = ctx.message.text.trim();
