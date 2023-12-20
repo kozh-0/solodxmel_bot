@@ -1,20 +1,18 @@
 import 'dotenv/config';
-import { Telegraf, session } from 'telegraf';
+import { Telegraf } from 'telegraf';
 import { Markup } from 'telegraf';
 import { message } from 'telegraf/filters';
-import { BTNS, LOG_USERS } from './help';
+import { BTNS } from './help';
 import { msgHandler } from './msgHandler';
-// import { stage } from './scene';
 
 const bot = new Telegraf(process.env.TG_KEY, { handlerTimeout: 20000 });
 
-bot.use(session());
+// bot.use(session());
 // bot.use(stage.middleware());
 
 bot.start((ctx) => {
-  LOG_USERS(ctx.message, 'START');
   ctx.replyWithPhoto(
-    { source: 'darkLogoSmall.jpg' },
+    { source: 'src/public/darkLogoSmall.jpg' },
     {
       caption:
         'Компания Солод Хмель это надёжный поставщик и производитель пивоваренной продукции, снеков и сопутствующих товаров с 2011 года.',

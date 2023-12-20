@@ -1,6 +1,6 @@
 import { Context, NarrowedContext, Markup } from 'telegraf';
 import { Update } from 'telegraf/types';
-import { BTNS, LOG_USERS, aboutText, applicationText } from './help';
+import { BTNS, LOG_USERS, aboutText, applicationText, businessHelp } from './help';
 import dedent from 'dedent';
 
 export async function msgHandler(
@@ -11,13 +11,14 @@ export async function msgHandler(
 
   switch (input) {
     case BTNS.About:
-      ctx.replyWithVideo({ source: 'solodxmel_about_video.mp4' }, { caption: aboutText });
+      await ctx.sendChatAction('upload_video');
+      await ctx.replyWithVideo({ source: 'src/public/solodxmel_about_video.mp4' }, { caption: aboutText });
       break;
     case BTNS.Catalog:
       ctx.reply('Тут будет продукция...');
       break;
     case BTNS.BusinessHelp:
-      ctx.reply('Тут будет что-то про помощь бизнесу...');
+      ctx.reply(businessHelp);
       break;
     case BTNS.Logistics:
       ctx.reply('Тут будет что-то про логистику...');
@@ -31,8 +32,8 @@ export async function msgHandler(
           inline_keyboard: [
             [
               Markup.button.callback('Отмена', 'cancel'),
-              { text: 'Сформировать письмо', web_app: { url: 'https://www.google.ru/' } },
-              Markup.button.callback('ЭКШН', 'send email'),
+              { text: 'Сформировать письмо', web_app: { url: 'https://kozh-0.github.io/solodxmel_bot_front/' } },
+              // Markup.button.callback('ЭКШН', 'send email'),
               // { text: 'Отмена', callback_data: 'CANCEL' },
               // { text: 'Отправить', web_app: { url: 'http://localhost:4200/reports' } },
             ],
@@ -41,10 +42,15 @@ export async function msgHandler(
       });
       break;
     case BTNS.Feedback:
-      ctx.reply(dedent`
+      ctx.replyWithPhoto(
+        { source: 'src/public/feedback.png' },
+        {
+          caption: dedent`
       Руководитель +7-(937)-363-33-36 Дмитрий 
       Отдел продаж +7-(987)-251-36-21 Артур
-      E-mail Ufa.pivo@gmail.com`);
+      E-mail Ufa.pivo@gmail.com`,
+        }
+      );
       break;
 
     default:
