@@ -12,13 +12,14 @@ export async function msgHandler(
   switch (input) {
     case BTNS.About:
       await ctx.sendChatAction('upload_video');
-      await ctx.replyWithVideo({ source: 'src/public/solodxmel_about_video.mp4' }, { caption: aboutText });
+      await ctx.replyWithVideo({ source: 'public/solodxmel_about_video.mp4' }, { caption: aboutText });
       break;
     case BTNS.Catalog:
       ctx.reply('Тут будет продукция...');
       break;
     case BTNS.BusinessHelp:
-      ctx.reply(businessHelp);
+      await ctx.sendChatAction('upload_photo');
+      ctx.replyWithPhoto({ source: 'public/businessHelp.png' }, { caption: businessHelp });
       break;
     case BTNS.Logistics:
       ctx.reply(logisticsText);
@@ -38,7 +39,7 @@ export async function msgHandler(
     case BTNS.Feedback:
       await ctx.sendChatAction('upload_photo');
       await ctx.replyWithPhoto(
-        { source: 'src/public/feedback.png' },
+        { source: 'public/feedback.png' },
         {
           caption: dedent`
       Руководитель +7-(937)-363-33-36 Дмитрий 

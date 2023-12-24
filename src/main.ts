@@ -9,7 +9,7 @@ const bot = new Telegraf(process.env.TG_KEY, { handlerTimeout: 20000 });
 
 bot.start((ctx) => {
   ctx.replyWithPhoto(
-    { source: 'src/public/darkLogoSmall.jpg' },
+    { source: 'public/darkLogoSmall.jpg' },
     {
       caption:
         'Компания Солод Хмель это надёжный поставщик и производитель пивоваренной продукции, снеков и сопутствующих товаров с 2011 года.',
