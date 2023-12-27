@@ -15,8 +15,15 @@ export async function msgHandler(
       await ctx.replyWithVideo({ source: 'public/solodxmel_about_video.mp4' }, { caption: aboutText });
       break;
     case BTNS.Catalog:
-      ctx.reply('Тут будет продукция...');
-      break;
+      // Телеграм не дает отправлять файлы более 50мб, если больше то ошибка
+      try {
+        await ctx.sendChatAction('upload_document');
+        await ctx.replyWithDocument({ source: 'public/solodxmel_prices_compressed.7z' }, { caption: 'Продукция' });
+      } catch (error) {
+        await ctx.reply('Файл слишком большой, не удалось отправить...');
+      } finally {
+        break;
+      }
     case BTNS.BusinessHelp:
       await ctx.sendChatAction('upload_photo');
       ctx.replyWithPhoto({ source: 'public/businessHelp.png' }, { caption: businessHelp });
