@@ -26,7 +26,13 @@ export async function msgHandler(
       }
     case BTNS.BusinessHelp:
       await ctx.sendChatAction('upload_photo');
-      ctx.replyWithPhoto({ source: 'public/businessHelp.png' }, { caption: businessHelp });
+      ctx.replyWithPhoto(
+        { source: 'public/businessHelp.png' },
+        {
+          caption: businessHelp,
+          reply_markup: { inline_keyboard: [[Markup.button.url('Чат поддержки', 'https://t.me/+Ylz7GGwIlephZjZi')]] },
+        }
+      );
       break;
     case BTNS.Logistics:
       ctx.reply(logisticsText);
@@ -52,6 +58,7 @@ export async function msgHandler(
       Руководитель +7-(937)-363-33-36 Дмитрий 
       Отдел продаж +7-(987)-251-36-21 Артур
       E-mail Ufa.pivo@gmail.com`,
+          reply_markup: { inline_keyboard: [[Markup.button.url('Чат поддержки', 'https://t.me/+Ylz7GGwIlephZjZi')]] },
         }
       );
       break;
