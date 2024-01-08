@@ -13,6 +13,11 @@ export async function msgHandler(
     case BTNS.About:
       await ctx.sendChatAction('upload_video');
       await ctx.replyWithVideo({ source: 'public/solodxmel_about_video.mp4' }, { caption: aboutText });
+      // await ctx.sendChatAction('upload_photo');
+      // const photos = new Array(11).fill(0).map((_, i) => ({ type: 'photo', media: `public/staff/${i + 1}.png` }));
+      // console.log(photos);
+      // ctx.sendMediaGroup([{ type: 'photo', media: `/public/staff/1.png` }]);
+      // await ctx.sendMediaGroup;
       break;
     case BTNS.Catalog:
       // Телеграм не дает отправлять файлы более 50мб, если больше то ошибка
