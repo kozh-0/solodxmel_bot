@@ -23,7 +23,6 @@ export async function msgHandler(
       break;
 
     case BTNS.Catalog:
-    case BTNS.Catalog:
       // Телеграм не дает отправлять файлы более 50мб, если больше то ошибка
       try {
         await ctx.sendChatAction('upload_document');
