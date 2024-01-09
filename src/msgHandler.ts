@@ -1,6 +1,6 @@
 import { Context, NarrowedContext, Markup } from 'telegraf';
 import { Update } from 'telegraf/types';
-import { BTNS, LOG_USERS, aboutText, applicationText, businessHelp, logisticsText } from './help';
+import { BTNS, LOG_USERS, aboutText, applicationText, businessHelp, logisticsText, staffPhotos } from './help';
 import dedent from 'dedent';
 
 export async function msgHandler(
@@ -12,23 +12,28 @@ export async function msgHandler(
   switch (input) {
     case BTNS.About:
       await ctx.sendChatAction('upload_video');
-      await ctx.replyWithVideo({ source: 'public/solodxmel_about_video.mp4' }, { caption: aboutText });
-      // await ctx.sendChatAction('upload_photo');
-      // const photos = new Array(11).fill(0).map((_, i) => ({ type: 'photo', media: `public/staff/${i + 1}.png` }));
-      // console.log(photos);
-      // ctx.sendMediaGroup([{ type: 'photo', media: `/public/staff/1.png` }]);
-      // await ctx.sendMediaGroup;
+      await ctx.reply(aboutText + '\n\nhttps://www.youtube.com/watch?v=jXetxiD6SIo');
+      // await ctx.replyWithVideo({ source: 'public/solodxmel_about_video.mp4' }, { caption: aboutText });
+      await ctx.sendChatAction('upload_photo');
+      try {
+        await ctx.sendMediaGroup(staffPhotos);
+      } catch (err) {
+        await ctx.reply('Не удалось отправить фотографии руководства компании... 😞');
+      }
       break;
+
+    case BTNS.Catalog:
     case BTNS.Catalog:
       // Телеграм не дает отправлять файлы более 50мб, если больше то ошибка
       try {
         await ctx.sendChatAction('upload_document');
         await ctx.replyWithDocument({ source: 'public/solodxmel_prices_compressed.7z' }, { caption: 'Продукция' });
-      } catch (error) {
+      } catch (err) {
         await ctx.reply('Файл слишком большой, не удалось отправить...');
       } finally {
         break;
       }
+
     case BTNS.BusinessHelp:
       await ctx.sendChatAction('upload_photo');
       ctx.replyWithPhoto(
@@ -42,6 +47,7 @@ export async function msgHandler(
     case BTNS.Logistics:
       ctx.reply(logisticsText);
       break;
+
     case BTNS.Application:
       ctx.reply(applicationText, {
         reply_markup: {
@@ -54,6 +60,7 @@ export async function msgHandler(
         },
       });
       break;
+
     case BTNS.Feedback:
       await ctx.sendChatAction('upload_photo');
       await ctx.replyWithPhoto(
