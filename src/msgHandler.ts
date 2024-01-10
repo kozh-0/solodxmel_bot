@@ -23,15 +23,45 @@ export async function msgHandler(
       break;
 
     case BTNS.Catalog:
-      // Телеграм не дает отправлять файлы более 50мб, если больше то ошибка
-      try {
-        await ctx.sendChatAction('upload_document');
-        await ctx.replyWithDocument({ source: 'public/solodxmel_prices_compressed.7z' }, { caption: 'Продукция' });
-      } catch (err) {
-        await ctx.reply('Файл слишком большой, не удалось отправить...');
-      } finally {
-        break;
-      }
+      await ctx.sendChatAction('upload_photo');
+      ctx.replyWithPhoto(
+        { source: 'public/catalog.jpg' },
+        {
+          reply_markup: {
+            inline_keyboard: [
+              [
+                Markup.button.url(
+                  'Каталог "Солод Хмель"',
+                  'https://drive.google.com/file/d/13T7OuOWS1nabcYWoh6TfPh27DKBU7MxO/view?usp=drivesdk'
+                ),
+              ],
+            ],
+          },
+          // reply_markup: {
+          //   inline_keyboard: [
+          //     [
+          //       Markup.button.callback('Отмена', 'cancel'),
+          //       {
+          //         text: 'Каталог "Солод Хмель"',
+          //         web_app: {
+          //           url: 'https://drive.google.com/file/d/13T7OuOWS1nabcYWoh6TfPh27DKBU7MxO/view?usp=drivesdk',
+          //         },
+          //       },
+          //     ],
+          //   ],
+          // },
+        }
+      );
+      break;
+    // Телеграм не дает отправлять файлы более 50мб, если больше то ошибка
+    // try {
+    //   await ctx.sendChatAction('upload_document');
+    //   await ctx.replyWithDocument({ source: 'public/solodxmel_prices_compressed.7z' }, { caption: 'Продукция' });
+    // } catch (err) {
+    //   await ctx.reply('Файл слишком большой, не удалось отправить...');
+    // } finally {
+    //   break;
+    // }
 
     case BTNS.BusinessHelp:
       await ctx.sendChatAction('upload_photo');
