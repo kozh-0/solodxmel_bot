@@ -103,3 +103,77 @@ export const staffPhotos: any[] = [
       'https://lh3.googleusercontent.com/u/2/drive-viewer/AEYmBYTx3CD0MpBrUMS3BYB-ejbBcQ2bbjX4VXOgt5NGHGTCY_dDd2EdW2-XNioXK0mknktVN1edss-kLMCggjhrUKBYtXPa=w1166-h959',
   },
 ];
+// Каталог с гугл диска, в телегу приходит в плохом качестве, поэтому отправил локальный фото как документы по одному
+// проблема в том, что файлы с инета по умолчанию сжатые прилетают в плохом качестве, но их можно отправить группой по 10.
+// А файлы локальные можно отправить в хорошем качестве, но только по одному
+
+// export const catalog: { fasovka: any[]; rozliv: any[]; sneki: any[] } = {
+//   fasovka: [
+//     {
+//       caption: 'Фасовка',
+//       type: 'document',
+//       media:
+//         'https://lh3.googleusercontent.com/u/2/drive-viewer/AEYmBYQUOQkbL7EjTj2blt_UDMNAbdeb7063RbqgBPBXx6bva3YGoeEblDqoCgS6sxoDfY3XCOMn5TV_4foK_SDxlPMNosbh=w1920-h959',
+//     },
+//     {
+//       type: 'document',
+//       media:
+//         'https://lh3.googleusercontent.com/u/2/drive-viewer/AEYmBYQFjvpyy7fPGULSycWDsQWt6b7bm8mnABT-Nr2xmukwA6QacLeFb7Iih1wQOQNL_0iDpHolVd_VjDymvGFt9gTlmPPO=w1920-h959',
+//     },
+//     {
+//       type: 'document',
+//       media:
+//         'https://lh3.googleusercontent.com/u/2/drive-viewer/AEYmBYQAAT30tosxsc7eJGVqp5uCXaWxPOhucqESSyxAKzuIb9Mc9kHAiXb_kC_-HhPXW5b749MEQonwhGQ-7LMPj3b6NcEAow=w1920-h959',
+//     },
+//     {
+//       type: 'document',
+//       media:
+//         'https://lh3.googleusercontent.com/u/2/drive-viewer/AEYmBYTzKZOn_Nr0wU0yRKPBMs1hfCKqXngFl9rEjO5ZsG44go67DC-_FfPj0lu3yETTB7r72lV07VNZhPRUL85pXczOGG0L8Q=w1920-h959',
+//     },
+//   ],
+//   rozliv: [
+//     {
+//       caption: 'Розлив',
+//       type: 'document',
+//       media:
+//         'https://lh3.googleusercontent.com/u/2/drive-viewer/AEYmBYQ2jssuACThGFkL1kMg3vqbDoD5mmbzaNn0p2N9xLEJ0KMw7xevrvQPf01EnFlC-zN1bBakbAmLnlRYBHjrh3YKHT4w2g=w1920-h959',
+//     },
+//     {
+//       type: 'document',
+//       media:
+//         'https://lh3.googleusercontent.com/u/2/drive-viewer/AEYmBYTbaCBhd_TOmUyCoE2JMuWscY0SN7jBQvnRWd_4htU7eWlx8vf76KD8BCnkiJwtZDrXuvS-uFtM4gBc7kpAWalbYBZGBw=w1327-h959',
+//       // 'https://lh3.googleusercontent.com/u/2/drive-viewer/AEYmBYSNdMOAOQOaAkYNZGc8dI85xNqQd0ZIl7Cdh-UH4YOCwteX68fQFOKtTu-OPdUvbun1usqUZhQwbQ8OrPpyCzRduqLCMA=w1920-h959',
+//     },
+//     {
+//       type: 'document',
+//       media:
+//         'https://lh3.googleusercontent.com/u/2/drive-viewer/AEYmBYTf8BpmLyrgv9i-85Y_ccBajLXcAj7TzYL6iS6WtLYiQV2ypyFfwEHc4u51lIBAezPHvK-UizG6F0s9z0ajrLtYr9BqBA=w1920-h959',
+//     },
+//     {
+//       type: 'document',
+//       media:
+//         'https://lh3.googleusercontent.com/u/2/drive-viewer/AEYmBYReXNVbjkM-okBHtLW2bmxnWnWrLgEb6Gavq9hJPxM1MnXDKpEifDEfWWQKjFp84Kzo1Baaad_TBbsmQSmQJFfCBovOIw=w1920-h959',
+//     },
+//     {
+//       type: 'document',
+//       media:
+//         'https://lh3.googleusercontent.com/u/2/drive-viewer/AEYmBYR524EYmu02MYahNxF3RDyQPCDfWBiQlC-9h5dGZ356kxFRYTHBSem4fnplrQp4WT-8F-VRvrJe99lzo5hjzF_XHdryZQ=w1920-h959',
+//     },
+//     {
+//       type: 'document',
+//       media:
+//         'https://lh3.googleusercontent.com/u/2/drive-viewer/AEYmBYR3vjK8m0T3TivLgmes7AlkvD-Vm6xrF1HL0O_A-xZi9yIrUh3v3Knnc0EdR3p95WHN0G-bj5sGt6rzyeHkArNQB5dKFA=w1920-h959',
+//     },
+//     {
+//       type: 'document',
+//       media:
+//         'https://lh3.googleusercontent.com/u/2/drive-viewer/AEYmBYSmRXv6lKEVUqnmdnjrMaa-we8DPJFD04M0GD2j4GZD8kaEEYuOdqCFfoPLb1df2KoGKqFmPElfGLsKZRbXnSh8JXoMdw=w1920-h959',
+//     },
+//     {
+//       type: 'document',
+//       media:
+//         'https://lh3.googleusercontent.com/u/2/drive-viewer/AEYmBYSTos7xuqX7td1aZ0kSKja9WBV7Xi7CDSp36zkHZ1xty39qpWe_M_jgQYf7-9ozEq0N9Jx8hjItbNq5UHB3-V5phfhMQQ=w1920-h959',
+//     },
+//   ],
+//   sneki: [{}],
+// };

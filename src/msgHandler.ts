@@ -23,36 +23,43 @@ export async function msgHandler(
       break;
 
     case BTNS.Catalog:
-      await ctx.sendChatAction('upload_photo');
-      ctx.replyWithPhoto(
-        { source: 'public/catalog.jpg' },
-        {
-          reply_markup: {
-            inline_keyboard: [
-              [
-                Markup.button.url(
-                  'Каталог "Солод Хмель"',
-                  'https://drive.google.com/file/d/13T7OuOWS1nabcYWoh6TfPh27DKBU7MxO/view?usp=drivesdk'
-                ),
-              ],
-            ],
-          },
-          // reply_markup: {
-          //   inline_keyboard: [
-          //     [
-          //       Markup.button.callback('Отмена', 'cancel'),
-          //       {
-          //         text: 'Каталог "Солод Хмель"',
-          //         web_app: {
-          //           url: 'https://drive.google.com/file/d/13T7OuOWS1nabcYWoh6TfPh27DKBU7MxO/view?usp=drivesdk',
-          //         },
-          //       },
-          //     ],
-          //   ],
-          // },
+      async function sendPhotosAsFile(photosCount: number, path: string, caption: string = '') {
+        await ctx.reply(caption);
+        for (let i = 0; i < photosCount; i++) {
+          await ctx.sendChatAction('upload_document');
+          await ctx.sendDocument({ source: `${path}${i + 1}.png` });
         }
+      }
+      await sendPhotosAsFile(
+        4,
+        `public/Каталог_comp/Фасовка_comp/Солод Хмель Фасовка_Монтажная область 1-0`,
+        'Фасовка'
       );
+      await sendPhotosAsFile(8, `public/Каталог_comp/Розлив_comp/Солод Хмель Разлив_Монтажная область 1-0`, 'Розлив');
+      await sendPhotosAsFile(13, `public/Каталог_comp/Снеки_comp/Солод Хмель Снеки_1.`, 'Снеки');
       break;
+    // await ctx.sendChatAction('upload_photo');
+    // ctx.sendMediaGroup(catalog.rozliv);
+    // await ctx.sendChatAction('upload_photo');
+    // ctx.sendMediaGroup(catalog.fasovka);
+    // await ctx.sendChatAction('upload_photo');
+
+    // ctx.replyWithPhoto(
+    //   { source: 'public/catalog.jpg' },
+    //   {
+    //     reply_markup: {
+    //       inline_keyboard: [
+    //         [
+    //           Markup.button.url(
+    //             'Каталог "Солод Хмель"',
+    //             'https://drive.google.com/file/d/13T7OuOWS1nabcYWoh6TfPh27DKBU7MxO/view?usp=drivesdk'
+    //           ),
+    //         ],
+    //       ],
+    //     },
+    //   }
+    // );
+
     // Телеграм не дает отправлять файлы более 50мб, если больше то ошибка
     // try {
     //   await ctx.sendChatAction('upload_document');
