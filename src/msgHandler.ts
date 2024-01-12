@@ -111,6 +111,14 @@ export async function msgHandler(
           },
         }
       );
+      await ctx.replyWithPhoto(
+        { source: 'public/pivoInfo.jpg' },
+        {
+          reply_markup: {
+            inline_keyboard: [[Markup.button.url(' Все про пиво', 'https://t.me/+A3ca19n889o4NjQy')]],
+          },
+        }
+      );
       break;
 
     case BTNS.Application:
