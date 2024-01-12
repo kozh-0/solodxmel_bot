@@ -15,7 +15,7 @@ bot.start((ctx) => {
         'Компания Солод Хмель это надёжный поставщик и производитель пивоваренной продукции, снеков и сопутствующих товаров с 2011 года.',
       ...Markup.keyboard([
         [BTNS.About, BTNS.Catalog, BTNS.BusinessHelp],
-        [BTNS.Logistics, BTNS.Application, BTNS.Feedback],
+        [BTNS.Manual, BTNS.Application, BTNS.Feedback],
       ]).resize(),
     }
   );

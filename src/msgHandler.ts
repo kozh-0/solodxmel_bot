@@ -1,6 +1,6 @@
 import { Context, NarrowedContext, Markup } from 'telegraf';
 import { Update } from 'telegraf/types';
-import { BTNS, LOG_USERS, aboutText, applicationText, businessHelp, logisticsText, staffPhotos } from './help';
+import { BTNS, LOG_USERS, aboutText, applicationText, businessHelp, staffPhotos } from './help';
 import dedent from 'dedent';
 
 export async function msgHandler(
@@ -80,8 +80,37 @@ export async function msgHandler(
         }
       );
       break;
-    case BTNS.Logistics:
-      ctx.reply(logisticsText);
+    case BTNS.Manual:
+      await ctx.replyWithPhoto(
+        { source: 'public/sellersTraining.jpg' },
+        {
+          reply_markup: {
+            inline_keyboard: [
+              [
+                Markup.button.url(
+                  'Обучение продавца',
+                  'https://docs.google.com/document/d/14pvCyFkfJ2E8cD_G-9_DeLEqicMjuIQz/edit?usp=drivesdk&ouid=104281085869952704273&rtpof=true&sd=true'
+                ),
+              ],
+            ],
+          },
+        }
+      );
+      await ctx.replyWithPhoto(
+        { source: 'public/techManual.jpg' },
+        {
+          reply_markup: {
+            inline_keyboard: [
+              [
+                Markup.button.url(
+                  'Техническая методичка',
+                  'https://docs.google.com/document/d/13DjjOS1dqaqo_c1Qp5wlMBd0Jm6RbBUp/edit?usp=drivesdk&ouid=104281085869952704273&rtpof=true&sd=true'
+                ),
+              ],
+            ],
+          },
+        }
+      );
       break;
 
     case BTNS.Application:
