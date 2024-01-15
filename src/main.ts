@@ -8,6 +8,16 @@ import { msgHandler } from './msgHandler';
 const bot = new Telegraf(process.env.TG_KEY, { handlerTimeout: 20000 });
 
 bot.start((ctx) => {
+  ctx.reply('Вам есть 18 лет?', {
+    reply_markup: {
+      inline_keyboard: [[Markup.button.callback('Нет', 'no18'), Markup.button.callback('Да', 'yes18')]],
+    },
+  });
+  // Это чтобы можно было внутри сообщения кнопки выводить
+  // ctx.reply('message, {reply_markup: { inline_keyboard: [[{ text: 'О компании', callback_data: 'AHAHHAh' }]] }}')
+});
+bot.action('no18', (ctx) => ctx.editMessageText('Простите, работаем только с совершеннолетними...'));
+bot.action('yes18', (ctx) =>
   ctx.replyWithPhoto(
     { source: 'public/darkLogoSmall.jpg' },
     {
@@ -18,10 +28,8 @@ bot.start((ctx) => {
         [BTNS.Manual, BTNS.Application, BTNS.Feedback],
       ]).resize(),
     }
-  );
-  // Это чтобы можно было внутри сообщения кнопки выводить
-  // ctx.reply('message, {reply_markup: { inline_keyboard: [[{ text: 'О компании', callback_data: 'AHAHHAh' }]] }}')
-});
+  )
+);
 
 bot.action('cancel', (ctx) => ctx.editMessageText('Может в следующий раз...'));
 

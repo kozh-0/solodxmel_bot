@@ -119,6 +119,14 @@ export async function msgHandler(
           },
         }
       );
+      await ctx.replyWithPhoto(
+        { source: 'public/news.jpg' },
+        {
+          reply_markup: {
+            inline_keyboard: [[Markup.button.url(' Новости', 'https://t.me/+NmdMhPbAQY9mOGVi')]],
+          },
+        }
+      );
       break;
 
     case BTNS.Application:
