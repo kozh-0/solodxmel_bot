@@ -16,7 +16,8 @@ export async function msgHandler(
       // await ctx.replyWithVideo({ source: 'public/solodxmel_about_video.mp4' }, { caption: aboutText });
       await ctx.sendChatAction('upload_photo');
       try {
-        await ctx.sendMediaGroup(staffPhotos);
+        await ctx.sendMediaGroup(staffPhotos.firstGroup);
+        await ctx.sendMediaGroup(staffPhotos.secondGroup);
       } catch (err) {
         await ctx.reply('Не удалось отправить фотографии руководства компании... 😞');
       }
