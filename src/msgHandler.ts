@@ -12,7 +12,9 @@ export async function msgHandler(
   switch (input) {
     case BTNS.About:
       await ctx.sendChatAction('upload_video');
-      await ctx.reply(aboutText + '\n\nhttps://www.youtube.com/watch?v=jXetxiD6SIo');
+      await ctx.reply(aboutText + '\n\nhttps://www.youtube.com/watch?v=jXetxiD6SIo', {
+        reply_markup: { inline_keyboard: [[Markup.button.url('Наш сайт', 'https://ufapivo.ru/')]] },
+      });
       // await ctx.replyWithVideo({ source: 'public/solodxmel_about_video.mp4' }, { caption: aboutText });
       await ctx.sendChatAction('upload_photo');
       try {
@@ -128,6 +130,21 @@ export async function msgHandler(
           },
         }
       );
+      await ctx.replyWithPhoto(
+        { source: 'public/prices.jpg' },
+        {
+          reply_markup: {
+            inline_keyboard: [
+              [
+                Markup.button.url(
+                  'Ценники',
+                  'https://drive.google.com/drive/folders/12XrdH4pSpIXNM-PUQ1DO2vWiM3kqhVhV'
+                ),
+              ],
+            ],
+          },
+        }
+      );
       break;
 
     case BTNS.Application:
@@ -152,7 +169,14 @@ export async function msgHandler(
       Руководитель +7-(937)-363-33-36 Дмитрий 
       Отдел продаж +7-(987)-251-36-21 Артур
       E-mail Ufa.pivo@gmail.com`,
-          reply_markup: { inline_keyboard: [[Markup.button.url('Чат поддержки', 'https://t.me/+Ylz7GGwIlephZjZi')]] },
+          reply_markup: {
+            inline_keyboard: [
+              [
+                Markup.button.url('Чат поддержки', 'https://t.me/+Ylz7GGwIlephZjZi'),
+                Markup.button.url('Наш сайт', 'https://ufapivo.ru/'),
+              ],
+            ],
+          },
         }
       );
       break;
