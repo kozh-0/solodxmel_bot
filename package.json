@@ -8,9 +8,9 @@
   "main": "./src/main.ts",
   "scripts": {
     "dev": "npx nodemon",
-    "build": "tsc",
+    "build": "rm -rf dist & tsc",
     "prod": "rm -rf dist & tsc && node dist/main.js",
-    "pm2": "npx pm2 delete main & rm -rf dist & tsc && npx pm2 start dist/main.js"
+    "pm2": "rm -rf dist & tsc && pm2 delete pivoTG_Bot && pm2 start ./dist/main.js --name 'pivoTG_Bot'"
   },
   "dependencies": {
     "dedent": "^1.5.1",
